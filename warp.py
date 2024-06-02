@@ -12,14 +12,14 @@ warp_cidr = [
     ]
 
 script_directory = os.path.dirname(__file__)
-ip_txt_path = os.path.join(script_directory, 'ip.txt')
+ip_txt_path = os.path.join(script_directory, 'cfw-ips.txt')
 result_path = os.path.join(script_directory, 'result.csv')
 
 def create_ips():
     c = 0
     total_ips = sum(len(list(ipaddress.IPv4Network(cidr))) for cidr in warp_cidr)
 
-    with open(ip_txt_path, 'w') as file:
+    with open(cfw_ips_txt_path, 'w') as file:
         for cidr in warp_cidr:
             ip_addresses = list(ipaddress.IPv4Network(cidr))
             for addr in ip_addresses:
@@ -28,12 +28,12 @@ def create_ips():
                 if c != total_ips:
                     file.write('\n')
 
-if os.path.exists(ip_txt_path):
-    print("ip.txt exist.")
+if os.path.exists(cfw_ips_txt_path):
+    print("cfw-ips.txt exist.")
 else:
-    print('Creating ip.txt File.')
+    print('Creating cfw-ips.txt File.')
     create_ips()
-    print('ip.txt File Created Successfully!')
+    print('cfw-ips.txt File Created Successfully!')
 
 def arch_suffix():
     machine = platform.machine().lower()
@@ -82,7 +82,7 @@ def warp_ip():
     creation_time = os.path.getctime(result_path)
     formatted_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d %H:%M:%S")
     for i, ip in enumerate(best_ipies):
-        config_prefix = f'warp://{best_ipies[0]}?ifp=10-20&ifps=20-60&ifpd=5-10#warpINwarp&&detour=warp://{best_ipies[1]}?ifp=10-20&ifps=20-60&ifpd=5-10#Warp-IR'
+        config_prefix = f'warp://{best_ipies[0]}?ifp=10-20&ifps=20-60&ifpd=5-10#Warp-IR&&detour=warp://{best_ipies[1]}?ifp=10-20&ifps=20-60&ifpd=5-10#warpONwarp'
     return config_prefix, formatted_time
 
 
@@ -99,6 +99,6 @@ with open('best_ipies.txt', 'w') as f:
     for ip in best_ipies:
         f.write(f"{ip}\n")
 
-os.remove(ip_txt_path)
+os.remove(cfw_ips_txt_path)
 os.remove(result_path)
 os.remove("warp")
