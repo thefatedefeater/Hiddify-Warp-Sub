@@ -12,8 +12,8 @@ warp_cidr = [
     ]
 
 script_directory = os.path.dirname(__file__)
-ip_txt_path = os.path.join(script_directory, 'cfw-ip.txt')
-result_path = os.path.join(script_directory, 'results.csv')
+ip_txt_path = os.path.join(script_directory, 'ip.txt')
+result_path = os.path.join(script_directory, 'result.csv')
 
 def create_ips():
     c = 0
@@ -29,11 +29,11 @@ def create_ips():
                     file.write('\n')
 
 if os.path.exists(ip_txt_path):
-    print("cfw-ip.txt exist.")
+    print("ip.txt exist.")
 else:
-    print('Creating cfw-ip.txt File.')
+    print('Creating ip.txt File.')
     create_ips()
-    print('cfw-ip.txt File Created Successfully!')
+    print('ip.txt File Created Successfully!')
 
 def arch_suffix():
     machine = platform.machine().lower()
