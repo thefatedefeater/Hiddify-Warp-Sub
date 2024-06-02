@@ -1,19 +1,19 @@
 import ipaddress, platform, subprocess, os, datetime, base64
 
 warp_cidr = [
-        '162.159.192.0/24',
-        '162.159.193.0/24',
-        '162.159.195.0/24',
-        '162.159.204.0/24',
         '188.114.96.0/24',
         '188.114.97.0/24',
         '188.114.98.0/24',
-        '188.114.99.0/24'
+        '188.114.99.0/24',
+        '162.159.192.0/24',
+        '162.159.193.0/24',
+        '162.159.195.0/24',
+        '162.159.204.0/24'
     ]
 
 script_directory = os.path.dirname(__file__)
-ip_txt_path = os.path.join(script_directory, 'ip.txt')
-result_path = os.path.join(script_directory, 'result.csv')
+ip_txt_path = os.path.join(script_directory, 'cfw-ip.txt')
+result_path = os.path.join(script_directory, 'results.csv')
 
 def create_ips():
     c = 0
@@ -29,11 +29,11 @@ def create_ips():
                     file.write('\n')
 
 if os.path.exists(ip_txt_path):
-    print("ip.txt exist.")
+    print("cfw-ip.txt exist.")
 else:
-    print('Creating ip.txt File.')
+    print('Creating cfw-ip.txt File.')
     create_ips()
-    print('ip.txt File Created Successfully!')
+    print('cfw-ip.txt File Created Successfully!')
 
 def arch_suffix():
     machine = platform.machine().lower()
@@ -82,14 +82,14 @@ def warp_ip():
     creation_time = os.path.getctime(result_path)
     formatted_time = datetime.datetime.fromtimestamp(creation_time).strftime("%Y-%m-%d %H:%M:%S")
     for i, ip in enumerate(best_ipies):
-        config_prefix = f'warp://{best_ipies[0]}?ifp=10-20&ifps=20-60&ifpd=5-10#Warp-IN-Warp&&detour=warp://{best_ipies[1]}?ifp=10-20&ifps=20-60&ifpd=5-10#Warp-IR'
+        config_prefix = f'warp://{best_ipies[0]}?ifp=10-20&ifps=20-60&ifpd=5-10#warpINwarp&&detour=warp://{best_ipies[1]}?ifp=10-20&ifps=20-60&ifpd=5-10#Warp-IR'
     return config_prefix, formatted_time
 
 
-title = "//profile-title: base64:" + base64.b64encode('Women Life Freedom ✌️'.encode('utf-8')).decode('utf-8') + "\n"
+title = "//profile-title: base64:" + base64.b64encode('Freedom to Dream'.encode('utf-8')).decode('utf-8') + "\n"
 update_interval = "//profile-update-interval: 1\n"
 sub_info = "//subscription-userinfo: upload=0; download=0; total=10737418240000000; expire=2546249531\n"
-profile_web = "//profile-web-page-url: https://github.com/ByteMysticRogue\n"
+profile_web = "//profile-web-page-url: https://github.com/NiREvil\n"
 last_modified = "//last update on: " + warp_ip()[1] + "\n"
 configs = warp_ip()[0]
 with open('warp.json', 'w') as op:
