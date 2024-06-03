@@ -1,10 +1,10 @@
-name: CHEF_Warp
+name: REvil_Warp
 
 on:
   push:
     branches: [ "main" ]
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   build:
