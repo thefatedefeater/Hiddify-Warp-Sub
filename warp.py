@@ -13,7 +13,7 @@ warp_cidr = [
 
 script_directory = os.path.dirname(__file__)
 cfw_ips_txt_path = os.path.join(script_directory, 'cfw-ips.txt')
-result_path = os.path.join(script_directory, 'scan-results.csv')
+result_path = os.path.join(script_directory, 'result.csv')
 
 def create_ips():
     c = 0
